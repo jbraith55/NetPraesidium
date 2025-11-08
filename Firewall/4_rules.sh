@@ -63,7 +63,7 @@ table nat {
         oifname "$INT_WAN" masquerade
     }
     chain PREROUTING {
-	type nat hook prerouting priority -100;
+		type nat hook prerouting priority -100;
     }
 }
 
