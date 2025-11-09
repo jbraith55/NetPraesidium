@@ -102,10 +102,11 @@ table inet filter {
 	
 	ip saddr $ALLOW_EXTERNAL ip daddr $ALLOW_DMZ udp dport 1194 accept
 
+		iif "$INT_DMZ" oif "$INT_LAN" drop
         iif "$INT_LAN" oif "$INT_WAN" accept
         iif "$INT_DMZ" oif "$INT_WAN" accept
-	iif "$INT_DMZ" oif "$INT_EXTERNAL" accept
-	iif "$INT_WAN" oif "$INT_DMZ" accept
+		iif "$INT_DMZ" oif "$INT_EXTERNAL" accept
+		iif "$INT_WAN" oif "$INT_DMZ" accept
 
         tcp flags syn tcp dport 22 ct state new limit rate $RATE_22 counter accept
         tcp flags syn tcp dport 80 ct state new limit rate $RATE_80 counter accept
